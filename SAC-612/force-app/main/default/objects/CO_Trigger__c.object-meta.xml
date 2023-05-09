@@ -1,0 +1,105 @@
+, Country_Region_City__c FROM Survey__c WHERE Id IN :surveyIds];
+        for(Survey__c survey : surveyList) {
+            survey.Country_Region_City__c = 'Country, Region, City Combination';
+        }
+        update surveyList;
+    }
+    
+    //Set the demographic data to show the survey to
+    if(Trigger.isInsert || Trigger.isUpdate) {
+        List<Survey__c> surveyList = [SELECT Id, Demographic_Data__c FROM Survey__c WHERE Id IN :surveyIds];
+        for(Survey__c survey : surveyList) {
+            survey.Demographic_Data__c = 'Demographic Data';
+        }
+        update surveyList;
+    }
+    
+    //Set the Start Date and End Date of the survey
+    if(Trigger.isInsert || Trigger.isUpdate) {
+        List<Survey__c> surveyList = [SELECT Id, Start_Date__c, End_Date__c FROM Survey__c WHERE Id IN :surveyIds];
+        for(Survey__c survey : surveyList) {
+            survey.Start_Date__c = Date.today();
+            survey.End_Date__c = Date.today() + 14;
+        }
+        update surveyList;
+    }
+    
+    //Set the User Account Type for the survey
+    if(Trigger.isInsert || Trigger.isUpdate) {
+        List<Survey__c> surveyList = [SELECT Id, User_Account_Type__c FROM Survey__c WHERE Id IN :surveyIds];
+        for(Survey__c survey : surveyList) {
+            survey.User_Account_Type__c = 'User Account Type';
+        }
+        update surveyList;
+    }
+    
+}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Domain__c</fullName>
+        <externalId>false</externalId>
+        <label>Domain</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>false</restricted>
+            <valueSetName>India_USA_Both</valueSetName>
+            <value>
+                <fullName>India</fullName>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>USA</fullName>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </value>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>false</restricted>
+            <valueSetName>Active_Inactive</valueSetName>
+            <value>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </value>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <label>State</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>false</restricted>
+            <valueSetName>NotStarted_Started_Cancelled_Completed</valueSetName>
+            <value>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Started</fullName>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </value
